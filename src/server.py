@@ -1,11 +1,7 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_sqlalchemy.model import Model
-from sqlalchemy import ForeignKey, Integer
-from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, declared_attr
 
 from routes import simple_page  # Ensure `simple_page` is a Blueprint instance
-from utils.utils import db
+from src.context.dbcontext import db
 
 app = Flask(__name__)
 

@@ -1,7 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 
-from utils.utils import db
+from src.context.dbcontext import db
 
 
 class Repository:

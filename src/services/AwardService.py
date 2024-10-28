@@ -1,6 +1,6 @@
-from src.repository.AwardRepository import AwardRepository
+from src.context.dbcontext import Award
 from src.services.BaseService import BaseService
-from utils.utils import Award
+
 
 
 class AwardService(BaseService):

@@ -1,5 +1,5 @@
+from src.context.dbcontext import Award
 from src.repository.BaseRepository import Repository
-from utils.utils import Award
 
 
 class AwardRepository(Repository):
