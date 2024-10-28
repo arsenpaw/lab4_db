@@ -24,21 +24,21 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 
 
-class Gender(Base):
+class Gender(db.Model):
     __tablename__ = 'Gender'
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
     Name = Column(String(255), nullable=False)
 
 
-class Kindergarten(Base):
+class Kindergarten(db.Model):
     __tablename__ = 'Kindergarten'
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
     Name = Column(String(255), nullable=False)
 
 
-class Group(Base):
+class Group(db.Model):
     __tablename__ = 'Group'
 
     GroupID = Column(Integer, primary_key=True, autoincrement=True)
@@ -46,22 +46,28 @@ class Group(Base):
     KindergartenId = Column(Integer, ForeignKey('Kindergarten.Id'), nullable=False)
 
 
-class Position(Base):
+class Position(db.Model):
     __tablename__ = 'Position'
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
     Title = Column(String(255), nullable=False)
 
 
-class Award(Base):
+class Award(db.Model):
     __tablename__ = 'Award'
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
     Title = Column(String(255), nullable=False, unique=True)
     Description = Column(String(255), nullable=False)
+    def to_dict(self):
+        return {
+            'Id': self.Id,
+            'Title': self.Title,
+            'Description': self.Description
+        }
 
 
-class Child(Base):
+class Child(db.Model):
     __tablename__ = 'Child'
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
@@ -74,14 +80,14 @@ class Child(Base):
     HistoryId = Column(Integer, ForeignKey('ChildHistory.Id'), nullable=False)
 
 
-class ChildGroupsHistory(Base):
+class ChildGroupsHistory(db.Model):
     __tablename__ = 'ChildGroupsHistory'
 
     ChildId = Column(Integer, ForeignKey('Child.Id'), primary_key=True)
     GroupId = Column(Integer, ForeignKey('Group.GroupID'), primary_key=True)
 
 
-class ChildHistory(Base):
+class ChildHistory(db.Model):
     __tablename__ = 'ChildHistory'
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
@@ -89,14 +95,14 @@ class ChildHistory(Base):
     GraduationDate = Column(DateTime, nullable=True)
 
 
-class ChildKindergartens(Base):
+class ChildKindergartens(db.Model):
     __tablename__ = 'ChildKindergartens'
 
     ChildId = Column(Integer, ForeignKey('Child.Id'), primary_key=True)
     KindergartenId = Column(Integer, ForeignKey('Kindergarten.Id'), primary_key=True)
 
 
-class Employee(Base):
+class Employee(db.Model):
     __tablename__ = 'Employee'
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
@@ -107,21 +113,21 @@ class Employee(Base):
     PositionId = Column(Integer, ForeignKey('Position.Id'), nullable=False)
 
 
-class EmployeeAwards(Base):
+class EmployeeAwards(db.Model):
     __tablename__ = 'EmployeeAwards'
 
     EmployeeId = Column(Integer, ForeignKey('Employee.Id'), primary_key=True)
     AwardId = Column(Integer, ForeignKey('Award.Id'), primary_key=True)
 
 
-class EmployeeGroups(Base):
+class EmployeeGroups(db.Model):
     __tablename__ = 'EmployeeGroups'
 
     CurrentGroupId = Column(Integer, ForeignKey('Group.GroupID'), primary_key=True)
     CurrentEmployeeId = Column(Integer, ForeignKey('Employee.Id'), primary_key=True)
 
 
-class EmployeeHistory(Base):
+class EmployeeHistory(db.Model):
     __tablename__ = 'EmployeeHistory'
 
     Id = Column(Integer, primary_key=True, autoincrement=True)

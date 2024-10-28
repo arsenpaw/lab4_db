@@ -1,1 +1,1 @@
-from .test import simple_page
+from .AwardController import simple_page
